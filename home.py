@@ -9,7 +9,7 @@ templates = jinja2.Environment(
     autoescape=True)
 
 
-class HomePage(webapp2.RequestHandler):
+class FrontPage(webapp2.RequestHandler):
 	def get(self):
 
 		template_values = {}
@@ -18,5 +18,5 @@ class HomePage(webapp2.RequestHandler):
 		self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/home', handler=HomePage),
+	webapp2.Route(r'/', handler=FrontPage),
 	], debug=True)
