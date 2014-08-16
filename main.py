@@ -3,6 +3,8 @@ import os
 import webapp2
 import jinja2
 
+from google.appengine.api import users
+
 templates = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'],
@@ -12,9 +14,11 @@ templates = jinja2.Environment(
 class HomePage(webapp2.RequestHandler):
 	def get(self):
 
-		template_values = {}
+		template_values = {
+			"user" : users.get_current_user()
+		}
 
-		template = templates.get_template('index.html')
+		template = templates.get_template('home.html')
 		self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
