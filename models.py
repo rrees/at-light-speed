@@ -6,6 +6,7 @@ class Game(ndb.Model):
 	description = ndb.TextProperty(required=True)
 	creator = ndb.UserProperty(required=True)
 	created = ndb.DateTimeProperty(auto_now_add=True)
+	admins = ndb.UserProperty(repeated=True)
 	players = ndb.UserProperty(repeated=True)
 
 class Character(ndb.Model):
