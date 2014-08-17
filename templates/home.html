@@ -4,23 +4,47 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Your games</h1>
+			<header><h1>Your games</h1></header>
 
 			<p>Welcome back {{user.nickname()}}</p>
 
-			<h2>Create a new game</h2>
+			<h1>Create a new game</h1>
 
 			<form method="POST" action="/game/new" role="form">
 				<div class="form-group">
 					<label for="title">Title</label>
-					<input id="title" type="text" class="form-control" required placeholder="A name for this individual game">
+					<input id="title" name="title" type="text" class="form-control" required placeholder="A name for this individual game">
 				</div>
 				<div class="form-group">
 					<label for="description">Description</label>
-					<input id="description" type="text" class="form-control" required placeholder="A short description of the backstory to the game">
+					<input id="description" name="description" type="text" class="form-control" required placeholder="A short description of the backstory to the game">
 				</div>
 				<button type="submit" class="btn">Create</button>
 			</form>
+
+			{% if games_created %}
+			<section>
+				<h1>Your games</h1>
+
+				{% for game in games_created %}
+				<article>
+					<h2>{{game.title}}</h2>
+				</article>
+				{% endfor %}
+			</section>
+			{% endif %}
+
+			{% if games_played %}
+			<section>
+				<h1>Your games</h1>
+
+				{% for game in games_played %}
+				<article>
+					<h2>{{game.title}}</h2>
+				</article>
+				{% endfor %}
+			</section>
+			{% endif %}
 		</div>
 	</div>
 </div>
