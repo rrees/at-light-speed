@@ -34,11 +34,11 @@
 			</section>
 			{% endif %}
 
-			{% if games_played %}
+			{% if games_playing %}
 			<section>
-				<h1>Your games</h1>
+				<h1>Playing in</h1>
 
-				{% for game in games_played %}
+				{% for game in games_playing %}
 				<article>
 					<h2>{{game.title}}</h2>
 				</article>
