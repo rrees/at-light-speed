@@ -44,7 +44,14 @@ class NewGameHandler(webapp2.RequestHandler):
 
 		return webapp2.redirect('/home')
 
+class GameHandler(webapp2.RequestHandler):
+	def get(self, key):
+		template_values = {}
+		template = templates.get_template('game.html')
+		self.response.write(template.render(template_values))
+
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/home', handler=HomePage),
-	webapp2.Route(r'/game/new', handler=NewGameHandler)
+	webapp2.Route(r'/game/new', handler=NewGameHandler),
+	webapp2.Route(r'/game/<key>', handler=GameHandler),
 	], debug=True)
