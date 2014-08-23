@@ -29,6 +29,7 @@
 				{% for game in games_created %}
 				<article>
 					<h2>{{game.title}}</h2>
+					<p><a href="/game/{{game.key.urlsafe()}}">View</a></p>
 				</article>
 				{% endfor %}
 			</section>
