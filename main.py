@@ -4,6 +4,7 @@ import webapp2
 import jinja2
 
 from google.appengine.api import users
+from google.appengine.ext import ndb
 
 import models
 
@@ -46,7 +47,11 @@ class NewGameHandler(webapp2.RequestHandler):
 
 class GameHandler(webapp2.RequestHandler):
 	def get(self, key):
-		template_values = {}
+		game_key = ndb.Key(urlsafe=key)
+
+		template_values = {
+			"game" : game_key.get(),
+		}
 		template = templates.get_template('game.html')
 		self.response.write(template.render(template_values))
 
