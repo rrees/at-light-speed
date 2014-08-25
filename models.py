@@ -10,6 +10,7 @@ class Game(ndb.Model):
 	players = ndb.UserProperty(repeated=True)
 
 class Character(ndb.Model):
+	player = ndb.UserProperty(repeated=True)
 	name = ndb.StringProperty(required=True)
 	description = ndb.TextProperty()
 

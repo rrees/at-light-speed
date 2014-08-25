@@ -49,8 +49,14 @@ class GameHandler(webapp2.RequestHandler):
 	def get(self, key):
 		game_key = ndb.Key(urlsafe=key)
 
+		if not game_key:
+			webapp2.abort(404, 'Game not found')
+
+		player_character = models.Character.query(ancestor=game_key).fetch()
+
 		template_values = {
 			"game" : game_key.get(),
+			"your_character" : player_character,
 		}
 		template = templates.get_template('game.html')
 		self.response.write(template.render(template_values))
