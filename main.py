@@ -52,7 +52,7 @@ class GameHandler(webapp2.RequestHandler):
 		if not game_key:
 			webapp2.abort(404, 'Game not found')
 
-		player_character = models.Character.query(ancestor=game_key).fetch()
+		player_character = models.Character.query(ancestor=game_key).get()
 
 		template_values = {
 			"game" : game_key.get(),
@@ -61,8 +61,32 @@ class GameHandler(webapp2.RequestHandler):
 		template = templates.get_template('game.html')
 		self.response.write(template.render(template_values))
 
+class CharacterHandler(webapp2.RequestHandler):
+	def post(self):
+		user = users.get_current_user()
+
+		# TODO check the passed parameters are valid
+		# TODO limit the player to single character
+
+		urlsafe_key = self.request.POST['game_key']
+		game_key = ndb.Key(urlsafe=urlsafe_key)
+		game = game_key.get()
+
+		name = self.request.POST['name']
+		description = self.request.POST['description']
+
+		new_character = models.Character(parent=game_key, player=user, name=name)
+
+		if description and len(description) > 0:
+			new_character.description = description
+
+		new_character.put()
+
+		return webapp2.redirect('/game/' + urlsafe_key)
+
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/home', handler=HomePage),
 	webapp2.Route(r'/game/new', handler=NewGameHandler),
+	webapp2.Route(r'/game/character', handler=CharacterHandler),
 	webapp2.Route(r'/game/<key>', handler=GameHandler),
 	], debug=True)
