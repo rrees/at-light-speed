@@ -1,4 +1,5 @@
 import os
+import logging
 
 import webapp2
 import jinja2
@@ -48,15 +49,29 @@ class NewGameHandler(webapp2.RequestHandler):
 class GameHandler(webapp2.RequestHandler):
 	def get(self, key):
 		game_key = ndb.Key(urlsafe=key)
+		user = users.get_current_user()
 
 		if not game_key:
 			webapp2.abort(404, 'Game not found')
 
-		player_character = models.Character.query(ancestor=game_key).get()
+		game = game_key.get()
+
+		characters = models.Character.query(ancestor=game_key).fetch(limit=100)
+
+		player_characters = [c for c in characters if c.player == user]
+		other_characters = [c for c in characters if not c.player == user]
+
+		player_character = None
+
+		if player_characters:
+			player_character = player_characters[0]
+
+		game_owner = user in game.admins
 
 		template_values = {
-			"game" : game_key.get(),
-			"your_character" : player_character,
+			"game": game,
+			"your_character": player_character,
+			"game_owner": game_owner,
 		}
 		template = templates.get_template('game.html')
 		self.response.write(template.render(template_values))

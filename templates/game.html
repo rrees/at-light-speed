@@ -32,6 +32,27 @@
 		<p>You are playing:<br>{{your_character.name}}</p>
 
 		{% endif %}
+
+		{{game}}
+		{% if game_owner %}
+
+		{% for player in game.players %}
+		{{player}}
+		{% endfor %}
+
+		<form method="POST" action="/game/player" role="form">
+			<legend>Invite a new player</legend>
+			<input type="hidden" name="game_key" value="{{game.key.urlsafe()}}">
+
+			<div class="form-group">
+				<label for="player-email">Player's email</label>
+				<input type="email" class="form-control" id="player-email" name="email" required>
+			</div>
+
+			<button type="submit" class="btn btn-default">Invite</button>
+		</form>
+		{% endif %}
+
 		</div>
 	</div>
 </div>
