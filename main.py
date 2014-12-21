@@ -99,9 +99,28 @@ class CharacterHandler(webapp2.RequestHandler):
 
 		return webapp2.redirect('/game/' + urlsafe_key)
 
+class Invitation(webapp2.RequestHandler):
+	def post(self):
+		user = users.get_current_user()
+
+		# TODO check the passed parameters are valid
+		# TODO limit the player to single character
+
+		urlsafe_key = self.request.POST['game_key']
+		game_key = ndb.Key(urlsafe=urlsafe_key)
+		game = game_key.get()
+
+		email = self.request.POST['email']
+
+		game.invited_emails.append(email)
+		game.put()
+
+		return webapp2.redirect('/game/' + urlsafe_key)
+
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/home', handler=HomePage),
 	webapp2.Route(r'/game/new', handler=NewGameHandler),
 	webapp2.Route(r'/game/character', handler=CharacterHandler),
+	webapp2.Route(r'/game/invite/player', handler=Invitation),
 	webapp2.Route(r'/game/<key>', handler=GameHandler),
 	], debug=True)

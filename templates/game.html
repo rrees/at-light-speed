@@ -33,14 +33,17 @@
 
 		{% endif %}
 
-		{{game}}
 		{% if game_owner %}
 
 		{% for player in game.players %}
 		{{player}}
 		{% endfor %}
 
-		<form method="POST" action="/game/player" role="form">
+		{% for email in game.invited_emails %}
+		{{email}}
+		{% endfor %}
+
+		<form method="POST" action="/game/invite/player" role="form">
 			<legend>Invite a new player</legend>
 			<input type="hidden" name="game_key" value="{{game.key.urlsafe()}}">
 

@@ -8,6 +8,7 @@ class Game(ndb.Model):
 	created = ndb.DateTimeProperty(auto_now_add=True)
 	admins = ndb.UserProperty(repeated=True)
 	players = ndb.UserProperty(repeated=True)
+	invited_emails = ndb.StringProperty(repeated=True)
 
 class Character(ndb.Model):
 	player = ndb.UserProperty(required=True)
