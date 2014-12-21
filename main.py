@@ -21,9 +21,10 @@ class HomePage(webapp2.RequestHandler):
 		user = users.get_current_user()
 
 		template_values = {
-			"user" : user,
-			"games_created" : models.Game.query(models.Game.creator == user),
-			"games_playing" : models.Game.query(models.Game.players.IN([user])),
+			"user": user,
+			"games_created": models.Game.query(models.Game.creator == user),
+			"games_playing": models.Game.query(models.Game.players.IN([user])),
+			"games_invited": models.Game.query(models.Game.invited_emails.IN([user.email()]))
 		}
 
 		template = templates.get_template('home.html')

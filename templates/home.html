@@ -46,6 +46,19 @@
 				{% endfor %}
 			</section>
 			{% endif %}
+
+			{% if games_playing %}
+			<section>
+				<h1>Invitations</h1>
+
+				{% for game in games_invited %}
+				<article>
+					<h2>{{game.title}}</h2>
+					<p>Accept invitation</p>
+				</article>
+				{% endfor %}
+			</section>
+			{% endif %}
 		</div>
 	</div>
 </div>
