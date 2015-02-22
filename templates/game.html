@@ -30,15 +30,32 @@
 
 		{% if your_character %}
 		<p>You are playing:<br>{{your_character.name}}</p>
+		{% endif %}
 
+
+		{% if other_characters %}
+		<h3>Other characters</h3>
+
+		<ul>
+
+		{% for character in other_characters %}
+		<li>{{character.name}}</li>
+		{% endfor %}
+
+		</ul>
 		{% endif %}
 
 		{% if game_owner %}
+
+		<h2>Players</h2>
+
+		<p>You have started this game</p>
 
 		{% for player in game.players %}
 		{{player}}
 		{% endfor %}
 
+		<h3>Invitations</h3>
 		{% for email in game.invited_emails %}
 		{{email}}
 		{% endfor %}

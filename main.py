@@ -73,6 +73,7 @@ class GameHandler(webapp2.RequestHandler):
 			"game": game,
 			"your_character": player_character,
 			"game_owner": game_owner,
+			"other_characters": other_characters,
 		}
 		template = templates.get_template('game.html')
 		self.response.write(template.render(template_values))

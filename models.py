@@ -16,6 +16,8 @@ class Character(ndb.Model):
 	description = ndb.TextProperty()
 
 class Message(ndb.Model):
-	dt_sent = ndb.DateTimeProperty(required=True)
-	dt_receive = ndb.DateTimeProperty(required=True)
+	sent = ndb.DateTimeProperty(required=True)
+	receive = ndb.DateTimeProperty(required=True)
 	message = ndb.TextProperty(required=True)
+	sender = ndb.KeyProperty(required=True)
+	recipient = ndb.KeyProperty(required=True)
