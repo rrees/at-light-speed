@@ -1,0 +1,14 @@
+<section>
+<header>
+  <h1>Messages</h1>
+</header>
+
+<form>
+  <select name="recipient">
+    {% for character in other_characters %}
+    <option value="{{character.key.urlsafe()}}">{{character.name}}</option>
+    {% endfor %}
+    </select>
+</form>
+
+</section>
