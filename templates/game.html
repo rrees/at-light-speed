@@ -12,22 +12,22 @@
 	<div class="row">
 		<div class="col-md-12">
 			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation">
-					<a href="#game" aria-controls="home" role="tab" data-toggle="tab">Game</a>
+				<li role="presentation" class="nav-tab">
+					<a href="#game" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Game</a>
 				</li>
 				{% if game_owner %}
-				<li role="presentation">
-					<a href="#players" aria-controls="home" role="tab" data-toggle="tab">Players</a>
+				<li role="presentation" class="nav-tab">
+					<a href="#players" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Players</a>
 				</li>
 
-				<li role="presentation">
-					<a href="#invitations" aria-controls="home" role="tab" data-toggle="tab">Invitations</a>
+				<li role="presentation"  class="nav-tab">
+					<a href="#invitations" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Invitations</a>
 				</li>
 				{% endif %}
 			</ul>
 
 			<div class="tab-content">
-				<div id="game" role="tabpanel" class="tab-pane active">
+				<div id="game" role="tab-pane" class="tab-pane active">
 					{% if not your_character %}
 					<p>You need to create a character for this game</p>
 					<form method="POST" action="/game/character" role="form">
@@ -69,7 +69,7 @@
 				</div>
 
 				{% if game_owner %}
-				<div id="players" role="tabpanel" class="tab-pane">
+				<div id="players" role="tab-pane" class="tab-pane">
 					<h2>Players</h2>
 
 					<p>You have started this game</p>
@@ -82,7 +82,7 @@
 				</div>
 
 
-				<div id="invitations" role="tabpanel" class="tab-pane">
+				<div id="invitations" role="tab-pane" class="tab-pane">
 
 					<h2>Invitations</h2>
 					{% if not game.invited_emails %}

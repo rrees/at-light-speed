@@ -3,10 +3,7 @@ import os
 import webapp2
 import jinja2
 
-templates = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), '..', 'templates')),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+from templates import templates
 
 class FrontPage(webapp2.RequestHandler):
 	def get(self):

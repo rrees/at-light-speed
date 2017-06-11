@@ -2,64 +2,80 @@
 
 {% block content %}
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
+		<div class="row">
+			<div class="col">
 			<header><h1>Your games</h1></header>
 
 			<p>Welcome back {{user.nickname()}}</p>
-
-			<h1>Create a new game</h1>
-
-			<form method="POST" action="/game/new" role="form">
-				<div class="form-group">
-					<label for="title">Title</label>
-					<input id="title" name="title" type="text" class="form-control" required placeholder="A name for this individual game">
-				</div>
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input id="description" name="description" type="text" class="form-control" required placeholder="A short description of the backstory to the game">
-				</div>
-				<button type="submit" class="btn">Create</button>
-			</form>
-
-			{% if games_created %}
-			<section>
-				<h1>Your games</h1>
-
-				{% for game in games_created %}
-				<article>
-					<h2>{{game.title}}</h2>
-					<p><a href="/game/{{game.key.urlsafe()}}">View</a></p>
-				</article>
-				{% endfor %}
-			</section>
-			{% endif %}
-
-			{% if games_playing %}
-			<section>
-				<h1>Playing in</h1>
-
-				{% for game in games_playing %}
-				<article>
-					<h2>{{game.title}}</h2>
-				</article>
-				{% endfor %}
-			</section>
-			{% endif %}
-
-			{% if games_playing %}
-			<section>
-				<h1>Invitations</h1>
-
-				{% for game in games_invited %}
-				<article>
-					<h2>{{game.title}}</h2>
-					<p><a href="/game/{{game.key.urlsafe()}}">See game</a></p>
-				</article>
-				{% endfor %}
-			</section>
-			{% endif %}
+			</div>
 		</div>
-	</div>
+
+		<div class="row">
+			<div class="col">
+				<h1>Create a new game</h1>
+
+				<form method="POST" action="/game/new" role="form">
+					<div class="form-group">
+						<label for="title">Title</label>
+						<input id="title" name="title" type="text" class="form-control" required placeholder="A name for this individual game">
+					</div>
+					<div class="form-group">
+						<label for="description">Description</label>
+						<input id="description" name="description" type="text" class="form-control" required placeholder="A short description of the backstory to the game">
+					</div>
+					<button type="submit" class="btn">Create</button>
+				</form>
+			</div>
+		</div>
+
+		{% if games_created %}
+		<div class="row">
+			<div class="col">
+				<section>
+					<h1>Your games</h1>
+
+					{% for game in games_created %}
+					<article>
+						<h2>{{game.title}}</h2>
+						<p><a href="/game/{{game.key.urlsafe()}}">View</a></p>
+					</article>
+					{% endfor %}
+				</section>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if games_playing %}
+		<div class="row">
+			<div class="col">
+				<section>
+					<h1>Playing in</h1>
+
+					{% for game in games_playing %}
+					<article>
+						<h2>{{game.title}}</h2>
+					</article>
+					{% endfor %}
+				</section>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if games_playing %}
+		<div class="row">
+			<div class="col">
+				<section>
+					<h1>Invitations</h1>
+
+					{% for game in games_invited %}
+					<article>
+						<h2>{{game.title}}</h2>
+						<p><a href="/game/{{game.key.urlsafe()}}">See game</a></p>
+					</article>
+					{% endfor %}
+				</section>
+			</div>
+		</div>
+		{% endif %}
 </div>
 {% endblock %}

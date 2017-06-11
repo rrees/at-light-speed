@@ -8,12 +8,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 import models
-
-templates = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-
+from templates import templates
 
 class HomePage(webapp2.RequestHandler):
 	def get(self):
@@ -22,9 +17,9 @@ class HomePage(webapp2.RequestHandler):
 
 		template_values = {
 			"user": user,
-			"games_created": models.Game.query(models.Game.creator == user),
-			"games_playing": models.Game.query(models.Game.players.IN([user])),
-			"games_invited": models.Game.query(models.Game.invited_emails.IN([user.email()]))
+			"games_created": [ g for g in models.Game.query(models.Game.creator == user)],
+			"games_playing": [ g for g in models.Game.query(models.Game.players.IN([user]))],
+			"games_invited": [g for g in models.Game.query(models.Game.invited_emails.IN([user.email()]))],
 		}
 
 		template = templates.get_template('home.html')
@@ -70,6 +65,7 @@ class GameHandler(webapp2.RequestHandler):
 		game_owner = user in game.admins
 
 		template_values = {
+			"page_title": game.title,
 			"game": game,
 			"your_character": player_character,
 			"game_owner": game_owner,
