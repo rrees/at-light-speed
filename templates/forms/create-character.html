@@ -1,0 +1,17 @@
+
+<form method="POST" action="/game/character" role="form">
+	<input type="hidden" name="game_key" value="{{game.key.urlsafe()}}">
+
+	<div class="form-group">
+		<label for="char-name">Character name</label>
+		<input type="text" class="form-control" id="char-name" name="name">
+	</div>
+
+	<div class="form-group">
+		<label for="char-description">Describe your character briefly</label>
+		<textarea  class="form-control" id="char-description" name="description">
+		</textarea>
+	</div>
+
+	<button type="submit" class="btn btn-default">Create</button>
+</form>
