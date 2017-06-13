@@ -36,24 +36,6 @@ class HomePage(webapp2.RequestHandler):
 		template = templates.get_template('home.html')
 		self.response.write(template.render(template_values))
 
-
-class NewGameHandler(webapp2.RequestHandler):
-	def post(self):
-		for key in ['title', 'description']:
-			if not key in self.request.POST.keys():
-				webapp2.abort(400, 'Missing key {key}'.format(key=key))
-
-		user = users.get_current_user()
-
-		title = self.request.POST['title']
-		description = self.request.POST['description']
-
-		new_game = models.Game(title=title, description=description, creator=user, admins=[user], players=[user])
-		new_game.put()
-
-
-		return webapp2.redirect('/home')
-
 class GameHandler(webapp2.RequestHandler):
 	def get(self, key):
 		game_key = ndb.Key(urlsafe=key)
