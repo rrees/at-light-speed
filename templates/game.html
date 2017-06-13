@@ -9,13 +9,38 @@
 		</div>
 	</div>
 
+	<div class="row mb-5">
+		<div class="col">
+			{% if not your_character %}
+			<p>You need to create a character for this game</p>
+			
+			{% include "forms/create-character.html" %}
+			{% endif %}
+
+			{% if your_character %}
+			<p>You are playing:<br>{{your_character.name}}</p>
+			{% endif %}
+
+
+			{% if other_characters %}
+			<h3>Other characters</h3>
+
+			<ul>
+
+			{% for character in other_characters %}
+			<li>{{character.name}}</li>
+			{% endfor %}
+
+			</ul>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% if game_owner %}
 	<div class="row">
-		<div class="col-md-12">
-			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="nav-tab">
-					<a href="#game" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Game</a>
-				</li>
-				{% if game_owner %}
+		<div class="col">
+			<ul class="nav nav-tabs mb-3" role="tablist">
 				<li role="presentation" class="nav-tab">
 					<a href="#players" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Players</a>
 				</li>
@@ -23,53 +48,10 @@
 				<li role="presentation"  class="nav-tab">
 					<a href="#invitations" class="nav-link" aria-controls="home" role="tab" data-toggle="tab">Invitations</a>
 				</li>
-				{% endif %}
 			</ul>
 
 			<div class="tab-content">
-				<div id="game" role="tab-pane" class="tab-pane active">
-					{% if not your_character %}
-					<p>You need to create a character for this game</p>
-					<form method="POST" action="/game/character" role="form">
-						<input type="hidden" name="game_key" value="{{game.key.urlsafe()}}">
-
-						<div class="form-group">
-							<label for="char-name">Character name</label>
-							<input type="text" class="form-control" id="char-name" name="name">
-						</div>
-
-						<div class="form-group">
-							<label for="char-description">Describe your character briefly</label>
-							<textarea  class="form-control" id="char-description" name="description">
-							</textarea>
-						</div>
-
-						<button type="submit" class="btn btn-default">Create</button>
-					</form>
-					{% endif %}
-
-					{% if your_character %}
-					<p>You are playing:<br>{{your_character.name}}</p>
-					{% endif %}
-
-
-					{% if other_characters %}
-					<h3>Other characters</h3>
-
-					<ul>
-
-					{% for character in other_characters %}
-					<li>{{character.name}}</li>
-					{% endfor %}
-
-					</ul>
-					{% endif %}
-
-          {% include "message-box.html" %}
-				</div>
-
-				{% if game_owner %}
-				<div id="players" role="tab-pane" class="tab-pane">
+				<div id="players" role="tab-pane" class="tab-pane active">
 					<h2>Players</h2>
 
 					<p>You have started this game</p>
@@ -110,10 +92,9 @@
 					</form>
 
 				</div>
-				{% endif %}
 			</div>
 		</div>
 	</div>
-
+{% endif %}
 </div>
 {% endblock %}
