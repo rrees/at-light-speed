@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>{{page_title}} - At Light Speed</title>
+	<title>{{title}} - At Light Speed</title>
 
     <meta charset="utf-8">
 
@@ -12,6 +12,11 @@
 </head>
 
 <body>
+
+{% if user %}
+{% include "fragments/navigation.html" %}
+{% endif %}
+
 {% block content %}
 {% endblock %}
 

@@ -16,6 +16,7 @@ class HomePage(webapp2.RequestHandler):
 		user = users.get_current_user()
 
 		template_values = {
+			"title": "Home",
 			"user": user,
 			"games_created": [ g for g in models.Game.query(models.Game.creator == user)],
 			"games_playing": [ g for g in models.Game.query(models.Game.players.IN([user]))],
@@ -65,7 +66,7 @@ class GameHandler(webapp2.RequestHandler):
 		game_owner = user in game.admins
 
 		template_values = {
-			"page_title": game.title,
+			"title": game.title,
 			"game": game,
 			"your_character": player_character,
 			"game_owner": game_owner,
